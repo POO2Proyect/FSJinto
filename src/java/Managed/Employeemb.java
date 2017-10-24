@@ -38,7 +38,7 @@ public class Employeemb {
         generarListaEmpleado();
         
         em.close();
-        return "employee";
+        return "employee.xhtml";
     }
     
     //listar los empleados de la Base de Datos
