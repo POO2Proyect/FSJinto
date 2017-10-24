@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:tabView>
+                <p:tab title="Mostrar Capacitaciones">
+                    <p:carousel value="#{trainingmb.listaCapacitaciones}" headerText="Responsive" var="lista"
+                                itemStyle="text-align:center" responsive="true">
+                        <h:panelGrid >
+                            <h:outputText value="#{lista.descripcion}"/>
+                            <h:outputText value="#{lista.fecha}"/>
+                            <h:outputText value="#{lista.idCategoria}"/>
+                        </h:panelGrid>
+                    </p:carousel>
+                </p:tab>
+                <p:tab title="Agendar a Empleados">
+                    <p:selectOneMenu value="#{trainingEmployeemb.idCapacitacion}">
+                        <f:selectItems var="lista" value="#{trainingmb.listaCapacitaciones}"
+                                        itemLabel="#{lista.descripcion}" itemValue="#{lista.idCapacitacion}" />
+                    </p:selectOneMenu>
+                    <h:panelGrid columns="5" id="checkboxDT" >
+                        <p:selectCheckboxMenu id="menu" value="#{trainingEmployeemb.empleadosSeleccionados}" label="Empleados" filter="true" filterMatchMode="startsWith" panelStyle="width:250px;" >
+                            <f:selectItems value="#{employeemb.empleado}" var="listaEmpleados"
+                                            itemLabel="#{listaEmpleados.nombre} #{listaEmpleados.apellido}"
+                                            itemValue="#{listaEmpleados.codEmpleado}" />
+                        </p:selectCheckboxMenu>
+                        <p:commandButton update="detalle" icon="ui-icon-search"
+                                        value="Ver agregados" oncomplete="PF('dialogTraining').show()" />
+                        <p:commandButton icon="ui-icon-plus"
+                                         action="#{trainingEmployeemb.guardarEmpleado()}"
+                                        value="Agregar seleccionados" />
+                    </h:panelGrid>
+                    <p:dialog header="Capacitaciones"
+                                widgetVar="dialogTraining" modal="true" showEffect="fade"
+                                hideEffect="fade" resizable="false">
+                        <p:outputPanel id="detalle" style="text-align:center;">
+                            <p:dataList value="#{trainingEmployeemb.listaEmpleadoCapacitacion}"
+                                        var="listaEmpleados" type="unordered" itemType="none"
+                                        rowsPerPageLabel="5" styleClass="paginated">
+                                <f:facet name="header">
+                                    Lista de empleados para esta capacitacion
+                                </f:facet>
+                                <h:outputText value="#{listaEmpleados.nombre} #{listaEmpleados.apellido}" />
+                            </p:dataList>
+                        </p:outputPanel>
+                    </p:dialog>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+        <ui:include src="/resources/dock.xhtml" />
+    </h:body>
+</html>

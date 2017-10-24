@@ -112,5 +112,15 @@ public class CapacitacionEmpleado implements Serializable {
     public String toString() {
         return "Entidades.CapacitacionEmpleado[ idCapacitacionEmpleado=" + idCapacitacionEmpleado + " ]";
     }
+
+    public String setCodEmpleado(Empleado tmpEmpleado) {
+        String c = tmpEmpleado.toString();
+        return c;
+    }
+
+    public int setIdCapacitacion(Capacitaciones tmpCapacitacion) {
+        int c = tmpCapacitacion.hashCode();
+        return c;
+    }
     
 }
