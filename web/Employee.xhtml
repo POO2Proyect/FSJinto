@@ -16,20 +16,20 @@
                     <h:outputText value="EMPLOYEE FORM" />
                     <p:panelGrid columns="2" >
                         <h:outputText value="Codigo" />
-                        <h:inputText value="#{employeemb.employee.codEmpleado}" required="true" requiredMessage="El campo Codigo es Obligatorio" pt:placeholder="AAA0000" />
+                        <h:inputText value="#{employeemb.employee.codEmpleado}" required="true" requiredMessage="El campo Codigo es Obligatorio" pt:placeholder="AA000000" />
                         <h:outputText value="Nombre" />
                         <h:inputText value="#{employeemb.employee.nombre}" required="true" requiredMessage="El campo Nombre es Obligatorio" pt:placeholder="Juan"/>
                         <h:outputText value="Apellido" />
                         <h:inputText value="#{employeemb.employee.apellido}" required="true" requiredMessage="El campo Apellido es Obligatorio" pt:placeholder="Perez"/>
                         <h:outputText value="Telefono" />
                         <h:inputText value="#{employeemb.employee.telefono}" required="true" requiredMessage="El campo Telefono es Obligatorio" pt:placeholder="(2-7-6)000-0000">
-                            <f:validateRegex pattern="^[2|7|6]{1}[0-9]{3}-[0-9]{4}" />
+                            <f:validateRegex pattern="^[2|7|6]{1}[0-9]{3}-[0-9]{4}"/>
                         </h:inputText>
                     </p:panelGrid>
-                    <h:commandButton action="#{employeemb.guardarEmpleado()}" value="Guardar" />
+                    <h:commandButton action="@@@" value="Guardar" />
                     <h:messages />
                 </p:panelGrid>
-            </h:form>
+            
             
             <p:dataTable var="employee" value="#{employeemb.empleado}" rows="10" paginator="true" 
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
@@ -39,16 +39,17 @@
                     <h:outputText value="#{employee.codEmpleado}" />
                 </p:column>
                 <p:column headerText="Nombre" sortBy="#{employee.nombre}">
-                    <h:inputText value="#{employee.nombre}" />
+                    <h:outputText value="#{employee.nombre}" />
                 </p:column>
                 <p:column headerText="Apellido" sortBy="#{employee.apellido}">
-                    <h:inputText value="#{employee.apellido}" />
+                    <h:outputText value="#{employee.apellido}" />
                 </p:column>
                 <p:column headerText="Telefono" sortBy="#{employee.telefono}">
-                    <h:inputText value="#{employee.telefono}" />
+                    <h:outputText value="#{employee.telefono}" />
                 </p:column>
             
             </p:dataTable>
+            </h:form>
         </p:panel>
         <ui:include src="/resources/dock.xhtml" />
     </h:body>
