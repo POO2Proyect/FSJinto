@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Empleados</title>
+    </h:head>
+    <h:body>
+        <p:panel>
+            <h:form>
+                <p:panelGrid columns="1" style="width: 50%;">
+                    <h:outputText value="EMPLOYEE FORM" />
+                    <p:panelGrid columns="2" >
+                        <h:outputText value="Codigo" />
+                        <h:inputText value="#{employeemb.employee.codEmpleado}" required="true" requiredMessage="El campo Codigo es Obligatorio" pt:placeholder="AAA0000" />
+                        <h:outputText value="Nombre" />
+                        <h:inputText value="#{employeemb.employee.nombre}" required="true" requiredMessage="El campo Nombre es Obligatorio" pt:placeholder="Juan"/>
+                        <h:outputText value="Apellido" />
+                        <h:inputText value="#{employeemb.employee.apellido}" required="true" requiredMessage="El campo Apellido es Obligatorio" pt:placeholder="Perez"/>
+                        <h:outputText value="Telefono" />
+                        <h:inputText value="#{employeemb.employee.telefono}" required="true" requiredMessage="El campo Telefono es Obligatorio" pt:placeholder="(2-7-6)000-0000">
+                            <f:validateRegex pattern="^[2|7|6]{1}[0-9]{3}-[0-9]{4}" />
+                        </h:inputText>
+                    </p:panelGrid>
+                    <h:commandButton action="#{employeemb.guardarEmpleado()}" value="Guardar" />
+                    <h:messages />
+                </p:panelGrid>
+            </h:form>
+            
+            <p:dataTable var="employee" value="#{employeemb.empleado}" rows="10" paginator="true" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}
+                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">
+                
+                <p:column headerText="Codigo" sortBy="#{employee.codEmpleado}">
+                    <h:outputText value="#{employee.codEmpleado}" />
+                </p:column>
+                <p:column headerText="Nombre" sortBy="#{employee.nombre}">
+                    <h:inputText value="#{employee.nombre}" />
+                </p:column>
+                <p:column headerText="Apellido" sortBy="#{employee.apellido}">
+                    <h:inputText value="#{employee.apellido}" />
+                </p:column>
+                <p:column headerText="Telefono" sortBy="#{employee.telefono}">
+                    <h:inputText value="#{employee.telefono}" />
+                </p:column>
+            
+            </p:dataTable>
+        </p:panel>
+        <ui:include src="/resources/dock.xhtml" />
+    </h:body>
 </html>
